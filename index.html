@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dmytro Denysenko | Full Stack Developer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #070707;
+            --card-bg: rgba(26, 26, 26, 0.85);
+            --accent-cyan: #00d4ff;
+            --accent-deep: #005f73;
+            --text-main: #ffffff;
+            --text-gray: #a0a0a0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0f0f0f 0%, #002b36 25%, #0a1a1a 50%, #005f73 75%, #0f0f0f 100%);
+            background-size: 400% 400%;
+            animation: auroraGradient 12s ease-in-out infinite;
+            min-height: 100vh;
+        }
+
+        @keyframes auroraGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* INTRO SECTION */
+        #intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out, visibility 1s;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .intro-logo {
+            font-size: clamp(3rem, 15vw, 6rem);
+            font-weight: 700;
+            color: var(--accent-cyan);
+            border: 4px solid var(--accent-cyan);
+            padding: 10px 30px;
+            margin-bottom: 20px;
+            animation: logoPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoPulse {
+            from { transform: scale(1); box-shadow: 0 0 20px var(--accent-cyan); }
+            to { transform: scale(1.05); box-shadow: 0 0 50px var(--accent-cyan); }
+        }
+
+        #content { opacity: 0; transition: opacity 1s ease-in; }
+
+        /* REVEAL ANIMATIONS */
+        .reveal { opacity: 0; filter: blur(5px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal-left { transform: translateX(-50px); }
+        .reveal-right { transform: translateX(50px); }
+        .reveal-bottom { transform: translateY(30px); }
+        .revealed { opacity: 1 !important; transform: translate(0, 0) !important; filter: blur(0) !important; }
+
+        .container { 
+            max-width: 1300px; 
+            margin: 0 auto; 
+            padding: 20px;
+            width: 100%;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(40px, 10vh, 80px);
+            padding-top: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .brand h1 { font-size: clamp(1.5rem, 5vw, 2.5rem); text-transform: uppercase; }
+        .brand p { color: var(--accent-cyan); letter-spacing: 2px; font-size: 0.8rem; }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav ul { display: flex; list-style: none; gap: clamp(10px, 3vw, 20px); }
+        nav a { color: var(--text-main); text-decoration: none; text-transform: uppercase; font-size: 0.75rem; opacity: 0.6; transition: 0.3s; }
+        nav a:hover { opacity: 1; color: var(--accent-cyan); }
+
+        .lang-switch {
+            display: flex;
+            background: var(--card-bg);
+            padding: 4px;
+            border-radius: 30px;
+            border: 1px solid #333;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .lang-btn.active { background: var(--accent-cyan); color: #000; }
+
+        /* LAYOUT */
+        .main-layout { 
+            display: grid; 
+            grid-template-columns: 300px 1fr; 
+            gap: clamp(20px, 5vw, 60px); 
+        }
+
+        h2 { font-size: 1.1rem; text-transform: uppercase; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
+        h2::before { content: ""; width: 25px; height: 2px; background: var(--accent-cyan); }
+
+        /* SKILLS */
+        .skills-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); 
+            gap: 12px; 
+        }
+        .skill-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        /* PROJECTS */
+        .projects-list { display: flex; flex-direction: column; gap: 25px; }
+        .project-item {
+            display: flex;
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            transition: 0.4s;
+            backdrop-filter: blur(10px);
+        }
+        .project-thumb { 
+            width: 250px; 
+            min-width: 250px; 
+            background: rgba(0, 212, 255, 0.05); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .project-thumb i { font-size: 3rem; color: var(--accent-deep); }
+        .project-content { padding: clamp(20px, 4vw, 35px); flex-grow: 1; }
+        .project-content h4 { color: var(--accent-cyan); margin-bottom: 10px; font-size: 1.2rem; }
+        .project-content p { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 20px; }
+
+        .tag { background: #111; padding: 4px 12px; border-radius: 5px; font-size: 0.7rem; border: 1px solid #333; margin-right: 8px; margin-bottom: 8px; display: inline-block; }
+        .btn-link { color: white; text-decoration: none; font-weight: 700; border-bottom: 2px solid var(--accent-cyan); font-size: 0.8rem; display: inline-block; margin-top: 10px; }
+
+        /* CONTACT SECTION */
+        .bottom-section { 
+            margin-top: clamp(60px, 15vh, 120px); 
+            display: grid; 
+            grid-template-columns: 1fr 1.2fr; 
+            gap: clamp(30px, 6vw, 80px); 
+            padding-top: 50px; 
+            border-top: 1px solid #222; 
+        }
+        .contact-form input, .contact-form textarea { 
+            width: 100%; 
+            background: var(--card-bg); 
+            border: 1px solid #333; 
+            padding: 15px; 
+            color: white; 
+            border-radius: 8px; 
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+        .contact-form button { 
+            background: var(--accent-cyan); 
+            color: black; 
+            border: none; 
+            padding: 15px; 
+            font-weight: 700; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            width: 100%; 
+            transition: 0.3s; 
+        }
+        .contact-form button:hover { background: #fff; transform: translateY(-2px); }
+
+        .social-icons { display: flex; gap: 20px; margin-top: 20px; }
+        .social-icons a { color: white; font-size: 1.6rem; transition: 0.3s; }
+        .social-icons a:hover { color: var(--accent-cyan); transform: scale(1.1); }
+
+        /* RESPONSIVE QUERIES */
+        @media (max-width: 1100px) {
+            .main-layout { grid-template-columns: 250px 1fr; }
+            .project-thumb { width: 200px; min-width: 200px; }
+        }
+
+        @media (max-width: 992px) {
+            header { justify-content: center; text-align: center; }
+            .main-layout { grid-template-columns: 1fr; }
+            .bottom-section { grid-template-columns: 1fr; text-align: center; }
+            .social-icons { justify-content: center; }
+            aside { order: 2; }
+            section#projects { order: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .project-item { flex-direction: column; }
+            .project-thumb { width: 100%; height: 150px; }
+            .header-controls { flex-direction: column; gap: 15px; width: 100%; }
+            nav ul { font-size: 0.6rem; }
+            .brand h1 { font-size: 1.8rem; }
+        }
+
+        /* TV & Large Screens */
+        @media (min-width: 1921px) {
+            .container { max-width: 1600px; }
+            body { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="intro">
+        <div class="intro-logo">DD</div>
+        <div class="intro-text" id="intro-specialization">Full Stack Developer</div>
+    </div>
+
+    <div id="content" class="container">
+        <header class="reveal reveal-bottom">
+            <div class="brand">
+                <h1 data-key="name">Dmytro Denysenko</h1>
+                <p data-key="role">Full Stack Web Developer</p>
+            </div>
+            <div class="header-controls">
+                <nav>
+                    <ul>
+                        <li><a href="#skills" data-key="nav_skills">Skills</a></li>
+                        <li><a href="#projects" data-key="nav_projects">Portfolio</a></li>
+                        <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="lang-switch">
+                    <button id="btn-ua" class="lang-btn" onclick="setLanguage('ua')">UA</button>
+                    <button id="btn-en" class="lang-btn active" onclick="setLanguage('en')">EN</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-layout">
+            <aside id="skills" class="reveal reveal-left">
+                <h2 data-key="skills_title">Tech Stack</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">HTML5</div>
+                    <div class="skill-card">CSS3</div>
+                    <div class="skill-card">JavaScript</div>
+                    <div class="skill-card">React</div>
+                    <div class="skill-card">jQuery</div>
+                    <div class="skill-card">PHP</div>
+                    <div class="skill-card">Python</div>
+                    <div class="skill-card">Django</div>
+                    <div class="skill-card">MySQL</div>
+                    <div class="skill-card">Bootstrap</div>
+                </div>
+            </aside>
+
+            <section id="projects">
+                <h2 class="reveal reveal-right" data-key="projects_title">My Projects</h2>
+                <div class="projects-list">
+                    <article class="project-item reveal reveal-right">
+                        <div class="project-thumb"><i class="fas fa-user-star"></i></div>
+                        <div class="project-content">
+                            <h4 data-key="p1_title">Actress Anna Denysenko Site</h4>
+                            <p data-key="p1_desc">Personal actress portfolio.</p>
+                            <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span></div>
+                            <a href="http://annadenysenko.kr.ua" target="_blank" class="btn-link">ANNADENYSENKO.KR.UA</a>
+                        </div>
+                    </article>
+
+                    <article class="project-item reveal reveal-right">
+                        <div class="project-thumb"><i class="fas fa-trophy"></i></div>
+                        <div class="project-content">
+                            <h4 data-key="p2_title">TALENTED COUNTRY 2026</h4>
+                            <p data-key="p2_desc">Festival contest platform.</p>
+                            <div class="tags"><span class="tag">Python</span><span class="tag">Django</span></div>
+                            <a href="https://dmytrodenysenko18.github.io/talented-countryPOLTAVA26/" class="btn-link" data-key="live_view">LIVE PREVIEW</a>
+                        </div>
+                    </article>
+
+                    <article class="project-item reveal reveal-right">
+                        <div class="project-thumb"><i class="fas fa-heart"></i></div>
+                        <div class="project-content">
+                            <h4 data-key="p3_title">James & Emily Wedding</h4>
+                            <p data-key="p3_desc">Interactive wedding invite.</p>
+                            <div class="tags"><span class="tag">JS</span><span class="tag">Animation</span></div>
+                            <a href="#" class="btn-link" data-key="live_view">LIVE PREVIEW</a>
+                        </div>
+                    </article>
+
+                    <article class="project-item reveal reveal-right">
+                        <div class="project-thumb"><i class="fas fa-dog"></i></div>
+                        <div class="project-content">
+                            <h4 data-key="p4_title">B-Day: Elia the Dog</h4>
+                            <p data-key="p4_desc">Festive landing with effects.</p>
+                            <div class="tags"><span class="tag">jQuery</span><span class="tag">Creative</span></div>
+                            <a href="https://dmytrodenysenko18.github.io/elya10/" class="btn-link" data-key="live_view">LIVE PREVIEW</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <section class="bottom-section reveal reveal-bottom" id="contact">
+            <div class="about-text">
+                <h2 data-key="about_title">About Me</h2>
+                <p style="color: var(--text-gray); margin-bottom: 25px;" data-key="about_desc">Dmytro, Full Stack Developer. Building fast and modern web solutions.</p>
+                <div class="social-icons">
+                    <a href="https://github.com/dmytrodenysenko18" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2 data-key="contact_title">Get in Touch</h2>
+                <form action="https://formspree.io/f/mlggedlq" method="POST">
+                    <input type="text" name="name" id="f_name" placeholder="Your full name" required>
+                    <input type="email" name="email" id="f_email" placeholder="Your Email" required>
+                    <textarea name="message" rows="3" id="f_msg" placeholder="Your question" required></textarea>
+                    <button type="submit" data-key="send_btn">SEND MESSAGE</button>
+                </form>
+            </div>
+        </section>
+        
+        <footer style="text-align: center; margin-top: 80px; color: #444; font-size: 0.8rem; padding-bottom: 40px;">
+            &copy; 2026 Dmytro Denysenko | Delivery of Quality Code
+        </footer>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setLanguage('en');
+            const intro = document.getElementById('intro');
+            const content = document.getElementById('content');
+            setTimeout(() => {
+                intro.style.opacity = '0';
+                intro.style.visibility = 'hidden';
+                content.style.opacity = '1';
+                initObserver();
+            }, 5000); 
+        });
+
+        const translations = {
+            ua: {
+                name: "Дмитро Денисенко", role: "Full Stack Web Developer",
+                nav_skills: "Стек", nav_projects: "Портфоліо", nav_contact: "Контакти",
+                skills_title: "Стек технологій", projects_title: "Мої проєкти",
+                p1_title: "Сайт актриси Анни Денисенко", p1_desc: "Персональне портфоліо актриси.",
+                p2_title: "TALENTED COUNTRY 2026", p2_desc: "Платформа для фестивалю-конкурсу.",
+                p3_title: "James & Emily Wedding", p3_desc: "Інтерактивне весільне запрошення.",
+                p4_title: "B-Day: Собака Еля", p4_desc: "Святковий лендинг з ефектами.",
+                live_view: "ПЕРЕГЛЯНУТИ", about_title: "Про мене", 
+                about_desc: "Дмитро, Full Stack розробник. Створюю швидкі та сучасні рішення.",
+                contact_title: "Зв'язатися", send_btn: "НАДІСЛАТИ",
+                ph_name: "Ваше прізвище та ім'я", ph_email: "Ваш Email", ph_msg: "Ваше питання",
+                intro_role: "Full Stack Developer"
+            },
+            en: {
+                name: "Dmytro Denysenko", role: "Full Stack Web Developer",
+                nav_skills: "Skills", nav_projects: "Portfolio", nav_contact: "Contact",
+                skills_title: "Tech Stack", projects_title: "My Projects",
+                p1_title: "Actress Anna Denysenko Site", p1_desc: "Personal actress portfolio.",
+                p2_title: "TALENTED COUNTRY 2026", p2_desc: "Festival contest platform.",
+                p3_title: "James & Emily Wedding", p3_desc: "Interactive wedding invite.",
+                p4_title: "B-Day: Elia the Dog", p4_desc: "Festive landing with effects.",
+                live_view: "LIVE PREVIEW", about_title: "About Me",
+                about_desc: "Dmytro, Full Stack Developer. Building fast and modern web solutions.",
+                contact_title: "Get in Touch", send_btn: "SEND MESSAGE",
+                ph_name: "Your full name", ph_email: "Your Email", ph_msg: "Your question",
+                intro_role: "Full Stack Developer"
+            }
+        };
+
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                el.innerText = translations[lang][el.getAttribute('data-key')];
+            });
+            document.getElementById('f_name').placeholder = translations[lang].ph_name;
+            document.getElementById('f_email').placeholder = translations[lang].ph_email;
+            document.getElementById('f_msg').placeholder = translations[lang].ph_msg;
+            document.getElementById('intro-specialization').innerText = translations[lang].intro_role;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+            document.documentElement.lang = lang;
+        }
+
+        function initObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('revealed');
+                    else entry.target.classList.remove('revealed');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+    </script>
+</body>
+</html>
