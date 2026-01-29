@@ -166,14 +166,23 @@
             backdrop-filter: blur(10px);
         }
         .project-thumb { 
-            width: 250px; 
-            min-width: 250px; 
-            background: rgba(0, 212, 255, 0.05); 
+            width: 280px; 
+            min-width: 280px; 
+            background: #000; 
+            overflow: hidden;
             display: flex; 
             align-items: center; 
             justify-content: center; 
         }
-        .project-thumb i { font-size: 3rem; color: var(--accent-deep); }
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-item:hover .project-thumb img {
+            transform: scale(1.1);
+        }
         .project-content { padding: clamp(20px, 4vw, 35px); flex-grow: 1; }
         .project-content h4 { color: var(--accent-cyan); margin-bottom: 10px; font-size: 1.2rem; }
         .project-content p { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 20px; }
@@ -227,7 +236,7 @@
 
         @media (max-width: 600px) {
             .project-item { flex-direction: column; }
-            .project-thumb { width: 100%; height: 150px; }
+            .project-thumb { width: 100%; height: 200px; min-width: 100%; }
             .brand h1 { font-size: 1.5rem; }
         }
     </style>
@@ -236,7 +245,7 @@
 
     <div id="intro">
         <div class="intro-logo">DGT development studio</div>
-        </div>
+    </div>
 
     <div id="content" class="container">
         <header class="reveal reveal-bottom">
@@ -279,8 +288,11 @@
             <section id="projects">
                 <h2 class="reveal reveal-right" data-key="projects_title">My Projects</h2>
                 <div class="projects-list">
+                    
                     <article class="project-item reveal reveal-right">
-                        <div class="project-thumb"><i class="fas fa-user-star"></i></div>
+                        <div class="project-thumb">
+                            <img src="IMG_6496.JPEG" alt="Anna Denysenko Project">
+                        </div>
                         <div class="project-content">
                             <h4 data-key="p1_title">Actress Anna Denysenko Site</h4>
                             <p data-key="p1_desc">Personal actress portfolio.</p>
@@ -290,17 +302,21 @@
                     </article>
 
                     <article class="project-item reveal reveal-right">
-                        <div class="project-thumb"><i class="fas fa-trophy"></i></div>
+                        <div class="project-thumb">
+                            <img src="IMG_6494.JPEG" alt="Talented Country Project">
+                        </div>
                         <div class="project-content">
                             <h4 data-key="p2_title">TALENTED COUNTRY 2026</h4>
                             <p data-key="p2_desc">Festival contest platform.</p>
                             <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JS</span></div>
-                            <a href="https://dmytrodenysenko18.github.io/talented-countryPOLTAVA26/" class="btn-link" data-key="live_view">LIVE PREVIEW</a>
+                            <a href="https://dmytrodenysenko18.github.io/talented-countryPOLTAVA26/" target="_blank" class="btn-link" data-key="live_view">LIVE PREVIEW</a>
                         </div>
                     </article>
 
                     <article class="project-item reveal reveal-right">
-                        <div class="project-thumb"><i class="fas fa-heart"></i></div>
+                        <div class="project-thumb">
+                            <img src="IMG_6498.JPEG" alt="Wedding Project">
+                        </div>
                         <div class="project-content">
                             <h4 data-key="p3_title">James & Emily Wedding</h4>
                             <p data-key="p3_desc">Interactive wedding invite.</p>
@@ -310,14 +326,17 @@
                     </article>
 
                     <article class="project-item reveal reveal-right">
-                        <div class="project-thumb"><i class="fas fa-dog"></i></div>
+                        <div class="project-thumb">
+                            <img src="IMG_6495.JPEG" alt="Elia Dog Project">
+                        </div>
                         <div class="project-content">
                             <h4 data-key="p4_title">B-Day: Elia the Dog</h4>
                             <p data-key="p4_desc">Festive landing with effects.</p>
                             <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JS</span><span class="tag">Creative</span></div>
-                            <a href="https://dmytrodenysenko18.github.io/elya10/" class="btn-link" data-key="live_view">LIVE PREVIEW</a>
+                            <a href="https://dmytrodenysenko18.github.io/elya10/" target="_blank" class="btn-link" data-key="live_view">LIVE PREVIEW</a>
                         </div>
                     </article>
+                    
                 </div>
             </section>
         </main>
@@ -388,7 +407,7 @@
                 intro.style.visibility = 'hidden';
                 content.style.opacity = '1';
                 initObserver();
-            }, 5000); 
+            }, 3000); // Зменшив до 3 сек для зручності тестування
         });
 
         function setLanguage(lang) {
